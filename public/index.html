@@ -4,5 +4,21 @@
     </head>
     <body>
         <h1>Welcome to the PantherHub server.</h1>
+        <h4>/getAllStudents [GET]</h4>
+        <p>Gets a list of all student objects</p>
+        <h4>/getStudent/:studentId [GET]</h4>
+        <p>Gets the student object by id</p>
+        <ul>
+            <li>studentId - int</li>
+        </ul>
+        <h4>/addStudents [POST]</h4>
+        <p>Adds a student</p>
+        <ul>
+            <li>firstName - string</li>
+            <li>lastName - string</li>
+            <li>dob - string [YYYY/MM/DD format]</li>
+            <li>major - string</li>
+            <li>startDate - string [YYYY/MM/DD format]</li>
+        </ul>
     </body>
 </html>
