@@ -5,15 +5,13 @@ var bodyParser = require('body-parser');
 var socketIO = require('socket.io');
 var mysql = require('mysql');
 
+const ENV = require('./env');
+
 var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
-var con = mysql.createConnection({
-    host: 'sql9.freesqldatabase.com',
-    user: 'sql9219087',
-    password: 'ThGUZh1Mre',
-    database: 'sql9219087',
-});
+var con = mysql.createConnection(ENV.con);
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
