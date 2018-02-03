@@ -16,7 +16,7 @@ var con = mysql.createConnection(ENV.con);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/public', express.static(__dirname + '/public'));
-server.listen(3004, () => console.log('Starting server on port 3004'));
+server.listen(ENV.port, () => console.log('Starting server on port ' + ENV.port));
 app.get('/', (request, response) => response.sendFile(path.join(__dirname, '/public/index.html')));
 
 
