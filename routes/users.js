@@ -2,11 +2,10 @@ module.exports = function(app, con){
     app.post('/authUser', function(req, res) {
         var username = req.body.username;
         var password = req.body.password;
-        console.log(req.body);
-        var sql = 'SELECT accountType FROM accounts WHERE username = \'' + username + '\' AND password = \'' + password + '\'';
+        var sql = 'SELECT personId, accountType FROM accounts WHERE username = \'' + username + '\' AND password = \'' + password + '\'';
         con.query(sql, (err, result) => {
             if(err) res.send(err);
-            res.send(result);
+            res.send(result[0]);
         });
     });
     

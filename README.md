@@ -1,4 +1,4 @@
-# PantherHub
+# PantherHubServer
 Demo:
 
 ## Project Description

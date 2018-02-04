@@ -12,7 +12,7 @@ module.exports = function(app, con){
         var sql = 'SELECT * FROM students WHERE id = ' + studentId;
         con.query(sql, (err, result, fields) => {
             if(err) res.send(err);
-            res.send(result);
+            res.send(result[0]);
         });
     });
     
@@ -24,7 +24,6 @@ module.exports = function(app, con){
             major: req.body.major,
             startDate: req.body.startDate
         };
-        console.log(student);
         var sql = 'INSERT INTO students (firstName, lastName, dob, major, startDate) VALUES (\'' + student.firstName + '\', \'' + student.lastName + '\', \'' + student.dob + '\', \'' + student.major + '\', \'' + student.startDate + '\')';
         con.query(sql, (err, result) => {
             if(err) res.send(err);
