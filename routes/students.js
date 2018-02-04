@@ -12,7 +12,7 @@ module.exports = function(app, con){
         var sql = 'SELECT * FROM students WHERE id = ' + studentId;
         con.query(sql, (err, result, fields) => {
             if(err) res.send(err);
-            res.send(result[0]);
+            res.send(result.length ? result[0] : result);
         });
     });
     
