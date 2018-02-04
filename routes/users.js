@@ -5,7 +5,7 @@ module.exports = function(app, con){
         var sql = 'SELECT personId, accountType FROM accounts WHERE username = \'' + username + '\' AND password = \'' + password + '\'';
         con.query(sql, (err, result) => {
             if(err) res.send(err);
-            res.send(result[0]);
+            res.send(result.length ? result[0] : result);
         });
     });
     
