@@ -4,7 +4,8 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var socketIO = require('socket.io');
 var mysql = require('mysql');
-var cors = require('cors')
+var cors = require('cors');
+var moment = require('moment');
 
 const ENV = require('./env');
 const CONST = require('./const');
@@ -25,3 +26,4 @@ app.get('/', (request, response) => response.sendFile(path.join(__dirname, '/pub
 require('./routes/users')(app, con);
 require('./routes/students')(app, con);
 require('./routes/professors')(app, con);
+require('./routes/chat')(app, con, io, moment);
