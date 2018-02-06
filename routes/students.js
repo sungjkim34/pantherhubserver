@@ -18,8 +18,8 @@ module.exports = function(app, con){
     
     app.post('/addStudents', function(req, res) {
         var student = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
+            firstName: req.body.firstName.charAt(0).toUpperCase() + req.body.firstName.slice(1),
+            lastName: req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1),
             dob: req.body.dob,
             major: req.body.major,
             startDate: req.body.startDate
