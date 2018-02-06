@@ -22,4 +22,13 @@ module.exports = function(app, con){
             res.send(result);
         });
     });
+
+    app.get('/checkUsername/:username', function(req, res) {
+        var username = req.params.username;
+        var sql = 'SELECT * FROM accounts WHERE username = \'' + username + '\'';
+        con.query(sql, (err, result, fields) => {
+            if(err) res.send(err);
+            res.send(!!result.length);
+        });
+    });
 }
