@@ -23,7 +23,7 @@ module.exports = function(app, con){
             dob: req.body.dob,
             departmentId: req.body.departmentId
         };
-        var sql = 'INSERT INTO professors (firstName, lastName, dob, departmentId) VALUES (\'' + professor.firstName + '\', \'' + professor.lastName + '\')';
+        var sql = 'INSERT INTO professors (firstName, lastName, dob, departmentId) VALUES (\'' + professor.firstName + '\', \'' + professor.lastName + '\', \'' + professor.dob + '\', \'' + professor.departmentId+ '\')';
         con.query(sql, (err, result) => {
             if(err) res.send(err);
             res.send(result);
