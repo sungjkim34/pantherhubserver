@@ -2,7 +2,7 @@ module.exports = function(app, con){
     app.get('/getAllStudents', function(req, res) {
         var sql = 'SELECT * FROM students';
         con.query(sql, (err, result, fields) => {
-            if(err) res.send(result);
+            if(err) res.send(err);
             res.send(result);
         });
     });
@@ -16,7 +16,7 @@ module.exports = function(app, con){
         });
     });
     
-    app.post('/addStudents', function(req, res) {
+    app.post('/addStudent', function(req, res) {
         var student = {
             firstName: req.body.firstName.charAt(0).toUpperCase() + req.body.firstName.slice(1),
             lastName: req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1),

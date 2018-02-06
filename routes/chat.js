@@ -2,7 +2,7 @@ module.exports = function(app, con, io, moment){
     app.get('/getAllChats', function(req, res) {
         var sql = 'SELECT * FROM chats';
         con.query(sql, (err, result, fields) => {
-            if(err) res.send(result);
+            if(err) res.send(err);
             res.send(result);
         });
     });
@@ -12,7 +12,7 @@ module.exports = function(app, con, io, moment){
         var messageId = req.params.messageId;
         var sql = 'DELETE FROM chats WHERE id = ' + messageId;
         con.query(sql, (err, result, fields) => {
-            if(err) res.send(result);
+            if(err) res.send(err);
             res.send(result);
         });
     });
