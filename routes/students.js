@@ -30,4 +30,13 @@ module.exports = function(app, con){
             res.send(result);
         });
     });
+
+    app.post('/deleteStudent', function(req, res) {
+        var studentId = req.body.studentId;
+        var sql = 'DELETE FROM students WHERE id = ' + studentId + 'AND DELETE FROM accounts WHERE personId = ' + studentId + ' AND accountType = \'student\'';
+        con.query(sql, (err, result) => {
+            if(err) res.send(err);
+            res.send(result);
+        });
+    });
 }

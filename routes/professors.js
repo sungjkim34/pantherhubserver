@@ -29,4 +29,19 @@ module.exports = function(app, con){
             res.send(result);
         });
     });
+
+    app.post('/deleteProfessor', function(req, res) {
+        var professorId = req.body.professorId;
+        var sql = 'DELETE FROM professors WHERE id = ' + professorId;
+        con.query(sql, (err, result) => {
+            // TODO: JOIN SQL QUERIES INTO ONE
+            var sql2 = 'DELETE FROM accounts WHERE personId = ' + professorId + ' AND accountType = \'professor\'';
+            con.query(sql2, (err, result) => {
+                if(err) res.send(err);
+                res.send(result);
+            });
+            // if(err) res.send(err);
+            // res.send(result);
+        });
+    });
 }

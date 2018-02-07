@@ -31,4 +31,13 @@ module.exports = function(app, con){
             res.send(!!result.length);
         });
     });
+
+    app.post('/deleteAccount', function(req, res) {
+        var accountId = req.body.accountId;
+        var sql = 'DELETE FROM accounts WHERE id = ' + accountId;
+        con.query(sql, (err, result) => {
+            if(err) res.send(err);
+            res.send(result);
+        });
+    });
 }
