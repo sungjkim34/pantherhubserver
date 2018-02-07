@@ -22,4 +22,12 @@ module.exports = function(app, con){
         });
     });
 
+    app.post('/deleteCourse', function(req, res) {
+        var courseId = req.body.courseId;
+        var sql = 'DELETE FROM courses WHERE id = ' + courseId;
+        con.query(sql, (err, result) => {
+            if(err) res.send(err);
+            res.send(result);
+        });
+    });
 }

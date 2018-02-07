@@ -33,10 +33,16 @@ module.exports = function(app, con){
 
     app.post('/deleteStudent', function(req, res) {
         var studentId = req.body.studentId;
-        var sql = 'DELETE FROM students WHERE id = ' + studentId + 'AND DELETE FROM accounts WHERE personId = ' + studentId + ' AND accountType = \'student\'';
+        var sql = 'DELETE FROM students WHERE id = ' + studentId;
         con.query(sql, (err, result) => {
-            if(err) res.send(err);
-            res.send(result);
+            // TODO: JOIN SQL QUERIES INTO ONE
+            var sql2 = 'DELETE FROM accounts WHERE personId = ' + studentId + ' AND accountType = \'student\'';
+            con.query(sql2, (err, result) => {
+                if(err) res.send(err);
+                res.send(result);
+            });
+            // if(err) res.send(err);
+            // res.send(result);
         });
     });
 }

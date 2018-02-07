@@ -40,4 +40,13 @@ module.exports = function(app, con){
             res.send(result);
         });
     });
+
+    app.get('/getAllAccounts', function(req, res) {
+        var username = req.params.username;
+        var sql = 'SELECT * FROM accounts';
+        con.query(sql, (err, result, fields) => {
+            if(err) res.send(err);
+            res.send(result);
+        });
+    });
 }

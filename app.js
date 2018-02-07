@@ -23,6 +23,7 @@ server.listen(ENV.port, () => console.log('Starting server on port ' + ENV.port)
 app.get('/', (request, response) => response.sendFile(path.join(__dirname, '/public/index.html')));
 
 // Routing
+require('./routes/courses')(app, con);
 require('./routes/users')(app, con);
 require('./routes/students')(app, con);
 require('./routes/professors')(app, con);
