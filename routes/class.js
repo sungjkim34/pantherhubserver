@@ -8,6 +8,20 @@ module.exports = function(app, con){
         });
     });
 
+    app.get('/getAllClassesDetailed', function(req, res) {
+        var sql = 'SELECT class.id as id, courseId, professorId, startTime, endTime, classDays, maxStudents, location, firstName, lastName, dob, course.departmentId, name, credits, subject FROM classes AS class INNER JOIN professors AS professor ON class.professorId = professor.Id INNER JOIN courses AS course ON class.courseId = course.id';
+        con.query(sql, (err, result, fields) => {
+            if(err) res.send(err);
+            res.send(result);
+        });
+    });
+
+//     Select * 
+// from customers AS cust
+// INNER JOIN companies AS comp ON cust.Company = comp.Id
+// where comp.location like '%$term%' 
+//    or comp.company like '%$term%'
+
     app.post('/addClass', function(req, res) {
         var classInfo = {
             courseId: req.body.courseId,

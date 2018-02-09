@@ -25,6 +25,7 @@ app.get('/', (request, response) => response.sendFile(path.join(__dirname, '/pub
 // Routing
 require('./routes/class')(app, con);
 require('./routes/courses')(app, con);
+require('./routes/enrollments')(app, con, moment);
 require('./routes/users')(app, con);
 require('./routes/students')(app, con);
 require('./routes/professors')(app, con);
