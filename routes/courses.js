@@ -1,9 +1,12 @@
-module.exports = function(app, con){
+module.exports = function(app, con, logger){
 
     app.get('/getAllCourses', function(req, res) {
         var sql = 'SELECT * FROM courses';
         con.query(sql, (err, result, fields) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(result);
         });
     });
@@ -17,7 +20,10 @@ module.exports = function(app, con){
         }
         var sql = 'INSERT INTO courses (name, departmentId, credits, subject) VALUES (\'' + courseInfo.name + '\', \'' + courseInfo.departmentId + '\', \'' + courseInfo.credits + '\', \'' + courseInfo.subject + '\')';
         con.query(sql, (err, result) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(result);
         });
     });
@@ -26,7 +32,10 @@ module.exports = function(app, con){
         var courseId = req.body.courseId;
         var sql = 'DELETE FROM courses WHERE id = ' + courseId;
         con.query(sql, (err, result) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(result);
         });
     });

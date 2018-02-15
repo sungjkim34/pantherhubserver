@@ -1,9 +1,12 @@
-module.exports = function(app, con){
+module.exports = function(app, con, logger){
 
     app.get('/getAllClasses', function(req, res) {
         var sql = 'SELECT * FROM classes';
         con.query(sql, (err, result, fields) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(result);
         });
     });
@@ -11,7 +14,10 @@ module.exports = function(app, con){
     app.get('/getAllClassesDetailed', function(req, res) {
         var sql = 'SELECT class.id as id, courseId, professorId, startTime, endTime, classDays, maxStudents, location, firstName, lastName, dob, course.departmentId, name, credits, subject FROM classes AS class INNER JOIN professors AS professor ON class.professorId = professor.Id INNER JOIN courses AS course ON class.courseId = course.id';
         con.query(sql, (err, result, fields) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(result);
         });
     });
@@ -34,7 +40,10 @@ module.exports = function(app, con){
         }
         var sql = 'INSERT INTO classes (courseId, professorId, startTime, endTime, classDays, maxStudents, location) VALUES (\'' + classInfo.courseId + '\', \'' + classInfo.professorId + '\', \'' + classInfo.startTime + '\', \'' + classInfo.endTime + '\', \'' + classInfo.classDays + '\', \'' + classInfo.maxStudents + '\', \'' + classInfo.location + '\')';
         con.query(sql, (err, result) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(result);
         });
     });
@@ -43,7 +52,10 @@ module.exports = function(app, con){
         var classId = req.body.classId;
         var sql = 'DELETE FROM classes WHERE id = ' + classId;
         con.query(sql, (err, result) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(result);
         });
     });

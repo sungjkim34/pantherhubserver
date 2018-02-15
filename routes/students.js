@@ -1,8 +1,11 @@
-module.exports = function(app, con){
+module.exports = function(app, con, logger){
     app.get('/getAllStudents', function(req, res) {
         var sql = 'SELECT * FROM students';
         con.query(sql, (err, result, fields) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(result);
         });
     });
@@ -11,8 +14,11 @@ module.exports = function(app, con){
         var studentId = req.params.studentId;
         var sql = 'SELECT * FROM students WHERE id = ' + studentId;
         con.query(sql, (err, result, fields) => {
-            if(err) res.send(err);
-            res.send(result.length ? result[0] : result);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
+            res.send(result && result.length ? result[0] : result);
         });
     });
     
@@ -26,7 +32,10 @@ module.exports = function(app, con){
         };
         var sql = 'INSERT INTO students (firstName, lastName, dob, major, startDate) VALUES (\'' + student.firstName + '\', \'' + student.lastName + '\', \'' + student.dob + '\', \'' + student.major + '\', \'' + student.startDate + '\')';
         con.query(sql, (err, result) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(result);
         });
     });
@@ -38,7 +47,10 @@ module.exports = function(app, con){
             // TODO: JOIN SQL QUERIES INTO ONE
             var sql2 = 'DELETE FROM accounts WHERE personId = ' + studentId + ' AND accountType = \'student\'';
             con.query(sql2, (err, result) => {
-                if(err) res.send(err);
+                if (err) {
+                    logger.debug(err);
+                    res.send(err);
+                }
                 res.send(result);
             });
             // if(err) res.send(err);

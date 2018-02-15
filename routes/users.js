@@ -1,11 +1,14 @@
-module.exports = function(app, con){
+module.exports = function(app, con, logger){
     app.post('/authUser', function(req, res) {
         var username = req.body.username;
         var password = req.body.password;
         var sql = 'SELECT personId, accountType FROM accounts WHERE username = \'' + username + '\' AND password = \'' + password + '\'';
         con.query(sql, (err, result) => {
-            if(err) res.send(err);
-            res.send(result.length ? result[0] : result);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
+            res.send(result && result.length ? result[0] : result);
         });
     });
     
@@ -18,7 +21,10 @@ module.exports = function(app, con){
         }
         var sql = 'INSERT INTO accounts (username, password, accountType, personId) VALUES (\'' + user.username + '\', \'' + user.password + '\', \'' + user.accountType + '\', \'' + user.personId + '\')';
         con.query(sql, (err, result) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(result);
         });
     });
@@ -27,7 +33,10 @@ module.exports = function(app, con){
         var username = req.params.username;
         var sql = 'SELECT * FROM accounts WHERE username = \'' + username + '\'';
         con.query(sql, (err, result, fields) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(!!result.length);
         });
     });
@@ -36,7 +45,10 @@ module.exports = function(app, con){
         var accountId = req.body.accountId;
         var sql = 'DELETE FROM accounts WHERE id = ' + accountId;
         con.query(sql, (err, result) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(result);
         });
     });
@@ -45,7 +57,10 @@ module.exports = function(app, con){
         var username = req.params.username;
         var sql = 'SELECT * FROM accounts';
         con.query(sql, (err, result, fields) => {
-            if(err) res.send(err);
+            if (err) {
+                logger.debug(err);
+                res.send(err);
+            }
             res.send(result);
         });
     });
