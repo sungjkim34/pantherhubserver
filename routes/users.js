@@ -2,14 +2,19 @@ module.exports = function(app, con, logger){
     app.post('/authUser', function(req, res) {
         var username = req.body.username;
         var password = req.body.password;
-        var sql = 'SELECT personId, accountType FROM accounts WHERE username = \'' + username + '\' AND password = \'' + password + '\'';
-        con.query(sql, (err, result) => {
-            if (err) {
-                logger.debug(err);
-                res.send(err);
-            }
-            res.send(result && result.length ? result[0] : result);
-        });
+        if(!(/^[a-zA-Z0-9- ]*$/.test(username)) || !(/^[a-zA-Z0-9- ]*$/.test(password))) {
+            console.log('aweiofj');
+            res.send([]);
+        } else {
+            var sql = 'SELECT personId, accountType FROM accounts WHERE username = \'' + username + '\' AND password = \'' + password + '\'';
+            con.query(sql, (err, result) => {
+                if (err) {
+                    logger.debug(err);
+                    res.send(err);
+                }
+                res.send(result && result.length ? result[0] : result);
+            });
+        }
     });
     
     app.post('/registerUser', function(req, res) {
