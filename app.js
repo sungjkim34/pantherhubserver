@@ -54,3 +54,4 @@ require('./routes/students')(app, con, logger);
 require('./routes/professors')(app, con, logger);
 require('./routes/departments')(app, con, logger);
 require('./routes/chat')(app, con, io, moment, logger);
+require('./routes/transactions')(app, con, logger);
