@@ -24,7 +24,7 @@ module.exports = function(app, con, logger){
 
     app.get('/getClassesTaughtByProfessor/:professorId', function(req, res) {
         var professorId = req.params.professorId;
-        var sql = 'SELECT courseId, professorId, startTime, endTime, classDays, maxStudents, location, classes.id as classId, professors.id as professorId, firstName, lastName, dob, departmentId FROM classes INNER JOIN professors ON classes.professorId = professors.id WHERE professorId = ' + professorId;
+        var sql = 'SELECT course.name as courseName, courseId, professorId, startTime, endTime, classDays, maxStudents, location, class.id as classId, professor.id as professorId, firstName, lastName, dob, course.departmentId as departmentId FROM classes class INNER JOIN professors professor ON class.professorId = professor.id INNER JOIN courses course ON class.courseId = course.id WHERE professorId = ' + professorId;
         con.query(sql, (err, result, fields) => {
             if (err) {
                 logger.debug(err);
@@ -36,7 +36,7 @@ module.exports = function(app, con, logger){
 
     app.get('/getStudentsEnrolledInClass/:classId', function(req, res) {
         var classId = req.params.classId;
-        var sql = 'SELECT * FROM enrollments INNER JOIN students ON students.id = enrollments.studentId WHERE classId = ' + classId;
+        var sql = 'SELECT enrollments.id as enrollmentId, studentId, classId, enrollmentDate, firstName, lastName, dob, major, startDate FROM enrollments INNER JOIN students ON students.id = enrollments.studentId WHERE classId = ' + classId;
         con.query(sql, (err, result, fields) => {
             if (err) {
                 logger.debug(err);

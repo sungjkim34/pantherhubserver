@@ -48,8 +48,6 @@ module.exports = function(app, con, moment, logger){
 
     app.post('/dropClass', function(req, res) {
         var enrollmentId = req.body.enrollmentId;
-        // use enrollment id?
-        // var enrollmentId = req.body.enrollmentId
         var sql = 'DELETE FROM enrollments WHERE id = ' + enrollmentId;
         con.query(sql, (err, result) => {
             if (err) {
