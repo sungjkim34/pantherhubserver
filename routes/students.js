@@ -59,7 +59,7 @@ module.exports = function(app, con, logger){
     });
 
     // Address
-    app.get('/getStudentContactInfo/:studentId', function(req, res) {
+    app.get('/getContactInfo/:studentId', function(req, res) {
         var studentId = req.params.studentId;
         var sql = 'SELECT * FROM contactInfos WHERE studentId = ' + studentId;
         con.query(sql, (err, result, fields) => {
