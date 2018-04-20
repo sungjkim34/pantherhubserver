@@ -73,14 +73,14 @@ module.exports = function(app, con, logger){
     
     app.post('/updateContactInfo', function(req, res) {
         var contactInfo = {
-            studentId: req.body.studentId,
-            street: req.body.street,
-            street2: req.body.street2,
-            city: req.body.city,
-            state: req.body.state,
-            postalCode: req.body.postalCode,
-            phoneNumber: req.body.phoneNumber,
-            email: req.body.email
+            studentId: req.body.contactInfo.studentId,
+            street: req.body.contactInfo.street,
+            street2: req.body.contactInfo.street2,
+            city: req.body.contactInfo.city,
+            state: req.body.contactInfo.state,
+            postalCode: req.body.contactInfo.postalCode,
+            phoneNumber: req.body.contactInfo.phoneNumber,
+            email: req.body.contactInfo.email
         };
         var sql = 'INSERT INTO contactInfos (studentId, street, street2, city, state, postalCode, phoneNumber, email) VALUES(' + contactInfo.studentId + ', \'' + contactInfo.street + '\', \'' + contactInfo.street2 + '\', \'' + contactInfo.city + '\', \'' + contactInfo.state + '\', ' + contactInfo.postalCode + ', \'' + contactInfo.phoneNumber + '\', \'' + contactInfo.email + '\') ON DUPLICATE KEY UPDATE  studentId=VALUES(studentId), street=VALUES(street), street2=VALUES(street2), city=VALUES(city), state=VALUES(state), postalCode=VALUES(postalCode), phoneNumber=VALUES(phoneNumber), email=VALUES(email)';
         // res.send(sql);
