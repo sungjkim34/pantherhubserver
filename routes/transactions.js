@@ -20,7 +20,7 @@ module.exports = function(app, con, logger){
                 logger.debug(err);
                 res.send(err);
             }
-            res.send(result && result.length ? result[0] : result);
+            res.send(result && result.length ? result[0] : {});
         });
     });
     
